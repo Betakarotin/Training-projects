@@ -6,16 +6,16 @@ using namespace std;
 class Dro6b
 {
 private:
-	int chis, znam;
+	int chis, znam, celoe;
 public:
-	Dro6b(int ch = 0, int zn = 0)
+	Dro6b(int ch = 0, int zn = 0,int cel=0)
 	{
-		chis = ch, znam = zn;
+		chis = ch, znam = zn,celoe=cel;
 	}
 
-	void zap(int ch, int zn)
+	void zap(int ch, int zn,int cel)
 	{
-		chis = ch, znam = zn;
+		chis = ch, znam = zn,celoe=cel;
 	}
 
 	void plus(int chv, int znv)
@@ -30,7 +30,7 @@ public:
 			znamcop = znv;
 		
 		int step1=0, step2=0;
-		int reschis=0, resznam=0, resceloe=0;
+		int reschis = 0, resznam = 0;
 		for (int i = 0; i < 100; i++)
 		{
 			if (znam > znv)
@@ -70,30 +70,10 @@ public:
 		chis = chis*step1;
 		chv = chv*step2;
 	
-		resznam = o6znam;
-		reschis = chis+chv;
+		znam = o6znam;
+		chis = chis+chv;
 
-		if (resznam < reschis)
-		{
-			resceloe = reschis / resznam;
-			reschis = reschis%resznam;
-		}
-
-		int reschisX = reschis;					//Сокращение дроби
-		for (int i = 0; i < reschisX; reschisX--)
-		{
-			if (reschis%reschisX == 0 && resznam%reschisX == 0)
-			{
-				reschis = reschis / reschisX;
-				resznam = resznam / reschisX;
-			}
-
-		}
-
-		if(resceloe>0)
-			printf_s("   %d\n%d --\n   %d\n",reschis,resceloe , resznam);
-		else
-			printf_s("%d\n--\n%d\n", reschis, resznam);
+		
 	}
 
 	void minus(int chv, int znv)
@@ -109,7 +89,7 @@ public:
 			znamcop = znv;
 
 		int step1=0, step2=0;
-		int reschis=0, resznam=0, resceloe=0;
+		
 		for (int i = 0; i < 100; i++)
 		{
 			if (znam > znv)
@@ -149,98 +129,71 @@ public:
 		chis = chis*step1;
 		chv = chv*step2;
 
-		resznam = o6znam;
-		reschis = chis - chv;
+		znam = o6znam;
+		chis = chis - chv;
 
-		if (resznam < reschis)
-		{
-			resceloe = reschis / resznam;
-			reschis = reschis%resznam;
-		}
-
-		int reschisX = reschis;					//Сокращение дроби
-		for (int i = 0; i < reschisX; reschisX--)
-		{
-			if (reschis%reschisX == 0 && resznam%reschisX == 0)
-			{
-				reschis = reschis / reschisX;
-				resznam = resznam / reschisX;
-			}
-
-		}
-
-		if (resceloe>0)
-			printf_s("   %d\n%d --\n   %d\n", reschis, resceloe, resznam);
-		else
-			printf_s("%d\n--\n%d\n", reschis, resznam);
+		
 	}
 		
 	void mult(int chv, int znv)
 	{
-		int reschis = 0, resznam = 0, resceloe = 0;
-
-		reschis = chis*chv;
-		resznam = znam*znv;
-
-		if (resznam < reschis)
-		{
-			resceloe = reschis / resznam;
-			reschis = reschis%resznam;
-		}
-
 		
 
-		int reschisX = reschis;					//Сокращение дроби
-		for (int i = 0; i < reschisX; reschisX--)
-		{
-			if (reschis%reschisX == 0 && resznam%reschisX == 0)
-			{
-				reschis = reschis / reschisX;
-				resznam = resznam / reschisX;
-			}
-			
-		}
-		if (resceloe>0)
-			printf_s("   %d\n%d --\n   %d\n", reschis, resceloe, resznam);
-		else
-			printf_s("%d\n--\n%d\n", reschis, resznam);
+		chis = chis*chv;
+		znam = znam*znv;
+
+		
 	}
 	
 	void div(int chv, int znv)
 	{
-		int reschis = 0, resznam = 0, resceloe = 0;
+		
 
-		reschis = chis*znv;
-		resznam = znam*chv;
+		chis = chis*znv;
+		znam = znam*chv;
 
-		if (resznam < reschis)
+		
+	}
+
+	void get_dro6b()
+	{
+		if (znam < chis)
 		{
-			resceloe = reschis / resznam;
-			reschis = reschis%resznam;
+			celoe = chis / znam;
+			chis = chis%znam;
 		}
 
-
-
-		int reschisX = reschis;					//Сокращение дроби
+		int reschisX = chis;					//РЎРѕРєСЂР°С‰РµРЅРёРµ РґСЂРѕР±Рё
 		for (int i = 0; i < reschisX; reschisX--)
 		{
-			if (reschis%reschisX == 0 && resznam%reschisX == 0)
+			if (chis%reschisX == 0 && znam%reschisX == 0)
 			{
-				reschis = reschis / reschisX;
-				resznam = resznam / reschisX;
+				chis = chis / reschisX;
+				znam = znam / reschisX;
 			}
 
 		}
-		if (resceloe>0)
-			printf_s("   %d\n%d --\n   %d\n", reschis, resceloe, resznam);
+
+		if (celoe>0)
+			printf_s("   %d\n%d --\n   %d\n", chis, celoe, znam);
 		else
-			printf_s("%d\n--\n%d\n", reschis, resznam);
+			printf_s("%d\n--\n%d\n", chis, znam);
+
+		
+	}
+
+	Dro6b operator++()
+	{
+		return celoe++;
+		
 	}
 };
 
 void main()
 {
-	Dro6b e(2, 3);
+	Dro6b e(5, 7);
 	
-	e.div(4, 9);
+	e++;
+	e.get_dro6b();
+	
 }
