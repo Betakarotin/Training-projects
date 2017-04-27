@@ -1,0 +1,99 @@
+#include<iostream>
+using namespace std;
+
+class Time
+{
+private:
+	int hours, minutes, seconds;
+
+public:
+	Time(int hou=6,int min=27,int sec=12)
+	{
+		hours = hou, minutes = min, seconds = sec;
+	}
+
+	void set_time(int hou, int min, int sec)
+	{
+		hours = hou, minutes = min, seconds = sec;
+	}
+
+	void get_time()
+	{
+		cin >> hours >> minutes >>  seconds;
+	}
+	
+	void set_time()
+	{
+		cout << hours << ":" << minutes << ":" << seconds;
+	}
+
+	Time operator+(Time &obj)
+	{
+		Time temp;
+		temp.seconds = obj.seconds + seconds;
+		temp.minutes = obj.minutes + minutes;
+		temp.hours = obj.hours + hours;
+		if (temp.seconds > 59)
+		{
+			temp.minutes += (temp.seconds / 60);
+			temp.seconds = temp.seconds % 60;
+		}
+
+			if (temp.minutes > 59)
+			{
+				temp.hours += (temp.minutes / 60);
+				temp.minutes = temp.minutes % 60;
+				
+			}
+			if (temp.hours > 24)temp.hours = 24;
+		
+	}
+
+	Time operator-(Time &obj)
+	{
+		Time temp;
+		temp.seconds = obj.seconds - seconds;
+		temp.minutes = obj.minutes - minutes;
+		temp.hours = obj.hours - hours;
+
+		if (temp.seconds > 59)
+		{
+			temp.minutes += (temp.seconds / 60);
+			temp.seconds = temp.seconds % 60;
+		}
+
+		if (temp.minutes > 59)
+		{
+			temp.hours += (temp.minutes / 60);
+			temp.minutes = temp.minutes % 60;
+
+		}
+		if (temp.hours > 24)temp.hours = 24;
+
+		if (temp.seconds < 0)
+		
+			while (temp.seconds < 1) 
+			{
+				temp.seconds = 60 - (temp.seconds*-1);
+				temp.minutes--;
+				if (temp.minutes < 0)
+
+					while (temp.minutes < 1)
+					{
+						temp.minutes = 60 - (temp.minutes*-1);
+						temp.hours--;
+					}
+			}
+		
+	}
+
+	Time operator==(Time &obj)
+	{
+		if (obj.hours > hours)return 2;
+		else return 1;
+		if (obj.hours == hours&&obj.minutes > minutes)return 2;
+		else return 1;
+		if (obj.hours == hours&&obj.minutes == minutes&&obj.seconds > seconds)return 2;
+		else return 1;
+	}
+};
