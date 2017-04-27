@@ -1,0 +1,135 @@
+#include<iostream>
+using namespace std;
+
+class Datefriend;
+class Date
+{
+private:
+	int day, year;
+	char month[100];
+	friend class Datefriend;
+	friend Date operator++(Date &obj, int);
+	friend bool operator==(Date &obj1, Date &obj2);
+	friend bool operator>(Date &obj1, Date &obj2);
+	friend bool operator<(Date &obj1, Date &obj2);
+	friend ostream& operator<<(ostream &s, Date &obj);
+	friend istream& operator >> (istream &s, Date &obj);
+	friend Date operator+=(Date &obj1, Date &obj2);
+	friend Date operator-=(Date &obj1, Date &obj2);
+	
+public:
+	Date(int day = 28, int year = 1986, char month[10] = "September")
+	{
+		this->day = day, this->year = year;
+		strcpy_s(this->month, 10, month);
+	}
+	void date(int day, int year, char month[10])
+	{
+		this->day = day, this->year = year;
+		strcpy_s(this->month, 10, month);
+	}
+};
+
+class Datefriend
+{
+public:
+
+	Date plus(Date &obj)
+	{
+		return ++obj.day;
+	}
+
+	void get_date(Date &obj)
+	{
+		cout << obj.day << " " << obj.month << " " << obj.year;
+	}
+
+	
+	
+	
+	Date operator--(int)
+	{
+		Date obj;
+		return --obj.day;
+	}
+
+
+
+};
+
+Date operator++(Date &obj, int)
+{
+	Date old(obj.day);
+	obj.day++;
+	return old;
+}
+
+bool operator==(Date &obj1, Date &obj2)
+{
+
+	if ((obj1.day == obj2.day) && (obj1.year == obj2.year) && (strcmp(obj1.month, obj2.month) == 0))
+		return true;
+	return false;
+}
+
+bool operator!=(Date &obj1, Date &obj2)
+{
+	return !(obj1 == obj2);
+}
+
+bool operator>(Date &obj1, Date &obj2)
+{
+	if (obj1.day > obj2.day)
+		return true;
+	return false;
+}
+
+bool operator<(Date &obj1, Date &obj2)
+{
+	return !(obj1.day > obj2.day);
+}
+
+//ostream& operator<<(ostream &s, Date &obj)
+//{
+//	s << obj.date << " " << obj.month << " " << obj.year;
+//	return s;
+//}
+
+istream& operator >> (istream &s, Date &obj)
+{
+	cout << "Date:";
+	cin >> obj.day;
+	cout << "Month:";
+	cin >> obj.month;
+	cout << "Year:";
+	cin >> obj.year;
+	cout << endl;
+	return s;
+}
+
+Date operator+=(Date &obj1, Date &obj2)
+{
+	obj1.day += obj2.day;
+	obj1.year += obj2.year;
+	return obj1;
+}
+
+Date operator-=(Date &obj1, Date &obj2)
+{
+	obj1.day -= obj2.day;
+	obj1.year -= obj2.year;
+	return obj1;
+}
+ 
+void main()
+{
+	Date first;
+	Datefriend second;
+	first.date(12, 1956, "September");
+	/*second.plus(first);*/
+	
+	/*first =second--;*/
+
+	second.get_date(first);
+	
+}
